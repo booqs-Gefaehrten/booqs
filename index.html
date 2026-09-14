@@ -44,14 +44,14 @@
      Sichtbk: opacity am .corner (aktuell 0.2)
      Position: Abstände top/left/right/bottom
                an .c-tl / .c-tr / .c-bl / .c-br (aktuell je 2rem)
-  ═══════════════════════════════════════ */
+  ═══════════════════════════════════════
   .corner{position:fixed;width:80px;height:80px;opacity:0.2}
   .corner svg{width:100%;height:100%}
   .c-tl{top:2rem;left:2rem}
   .c-tr{top:2rem;right:2rem;transform:scaleX(-1)}
   .c-bl{bottom:2rem;left:2rem;transform:scaleY(-1)}
   .c-br{bottom:2rem;right:2rem;transform:scale(-1)}
-  /* ═══════════════════════════════════════ */
+  ═══════════════════════════════════════ */
 
   .card{
     text-align:center;
@@ -160,47 +160,25 @@
      "M80 2H2V80" → horizontale + vertikale Linie
      Alle 4 Ecken nutzen dasselbe SVG; Spiegelung
      erfolgt per CSS transform (siehe oben).
-═══════════════════════════════════════ -->
+═══════════════════════════════════════ 
 <div class="corner c-tl"><svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M80 2H2V80" stroke="#3D4A52" stroke-width="1.5"/></svg></div>
 <div class="corner c-tr"><svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M80 2H2V80" stroke="#3D4A52" stroke-width="1.5"/></svg></div>
 <div class="corner c-bl"><svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M80 2H2V80" stroke="#3D4A52" stroke-width="1.5"/></svg></div>
 <div class="corner c-br"><svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M80 2H2V80" stroke="#3D4A52" stroke-width="1.5"/></svg></div>
-<!-- ═══════════════════════════════════════ -->
+ ═══════════════════════════════════════ -->
 
 <div class="card">
-<div class="logo-wrap"> <img src="booqs.png" alt="booqs" style="width:180px;height:auto"> </div>
+
   <!-- ═══════════════════════════════════════
        00 LOGO
        Option A (aktuell): SVG-Logo direkt im Code
        Option B (Bildtausch): <div class="logo-wrap">
-                                <img src="booqs.png" alt="booqs" style="width:180px;height:auto">
+                                <img src="DEIN-LOGO.png" alt="booqs" style="width:180px;height:auto">
                               </div>
        Größe steuerbar über: style="width:180px" (aktuell 180px)
   ═══════════════════════════════════════ -->
   <div class="logo-wrap">
-    <svg width="180" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M60 160 Q160 20 260 160" stroke="#3D4A52" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-      <path d="M80 158 Q160 148 240 158" stroke="#3D4A52" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-      <path d="M80 158 Q90 172 160 168 Q230 172 240 158" stroke="#3D4A52" stroke-width="1.8" fill="none"/>
-      <path d="M160 168 L160 148" stroke="#3D4A52" stroke-width="1.4" fill="none"/>
-      <path d="M80 158 Q95 152 120 154 Q140 155 160 148" stroke="#3D4A52" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      <path d="M80 158 Q95 163 120 162 Q140 162 160 168" stroke="#3D4A52" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      <path d="M240 158 Q225 152 200 154 Q180 155 160 148" stroke="#3D4A52" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      <path d="M240 158 Q225 163 200 162 Q180 162 160 168" stroke="#3D4A52" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      <circle cx="152" cy="100" r="9" stroke="#3D4A52" stroke-width="1.6" fill="none"/>
-      <path d="M152 109 Q145 120 140 140 Q150 136 160 140 Q162 125 158 115 Q155 110 152 109Z" stroke="#3D4A52" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
-      <path d="M140 120 Q130 128 135 138" stroke="#3D4A52" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-      <circle cx="170" cy="118" r="7" stroke="#3D4A52" stroke-width="1.4" fill="none"/>
-      <path d="M170 125 Q166 134 163 145 Q170 142 177 145 Q177 135 173 128Z" stroke="#3D4A52" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-      <path d="M177 130 Q184 124 188 118" stroke="#3D4A52" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      <g transform="rotate(-35 195 120)">
-        <rect x="186" y="108" width="8" height="28" rx="1" stroke="#3D4A52" stroke-width="1.3" fill="none"/>
-        <path d="M186 136 L190 144 L194 136Z" stroke="#3D4A52" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-        <line x1="186" y1="112" x2="194" y2="112" stroke="#3D4A52" stroke-width="1"/>
-        <line x1="186" y1="132" x2="194" y2="132" stroke="#3D4A52" stroke-width="1"/>
-      </g>
-      <text x="160" y="194" text-anchor="middle" font-family="Georgia,'Playfair Display',serif" font-size="38" font-weight="400" fill="#3D4A52" letter-spacing="2">booqs</text>
-    </svg>
+    <img src="booqs-logo.png" alt="booqs" style="width:200px;height:auto">
   </div>
   <!-- ═══════════════════════════════════════ -->
 
