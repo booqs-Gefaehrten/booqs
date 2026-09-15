@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>booqs – Bald sind wir da</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap');
@@ -15,17 +15,25 @@
     --ink-faint:#B0BAC0;
     --line:rgba(61,74,82,0.15);
   }
-  html,body{height:100%}
+
+  html{
+    font-size:16px;
+    -webkit-text-size-adjust:100%;
+  }
+
   body{
     font-family:'Inter',sans-serif;
     background:var(--cream);
     color:var(--ink);
-    display:flex;flex-direction:column;
-    align-items:center;justify-content:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
     min-height:100vh;
-    padding:2rem;
+    min-height:100dvh; /* dynamic viewport height für mobile */
+    padding:clamp(1rem, 5vw, 3rem);
     position:relative;
-    overflow:hidden;
+    overflow-x:hidden;
   }
 
   body::before{
@@ -36,104 +44,218 @@
       radial-gradient(circle at 80% 80%, rgba(61,74,82,0.04) 0%, transparent 50%);
     pointer-events:none;
   }
+  .corner{
+    position:fixed;
+    width:clamp(40px, 6vw, 80px);
+    height:clamp(40px, 6vw, 80px);
+    opacity:0.2;
+    /* auf sehr kleinen Screens ausblenden */
+  }
+  .corner svg{width:100%;height:100%}
+  .c-tl{top:clamp(0.75rem,2vw,2rem);left:clamp(0.75rem,2vw,2rem)}
+  .c-tr{top:clamp(0.75rem,2vw,2rem);right:clamp(0.75rem,2vw,2rem);transform:scaleX(-1)}
+  .c-bl{bottom:clamp(0.75rem,2vw,2rem);left:clamp(0.75rem,2vw,2rem);transform:scaleY(-1)}
+  .c-br{bottom:clamp(0.75rem,2vw,2rem);right:clamp(0.75rem,2vw,2rem);transform:scale(-1)}
 
-  
+  @media(max-width:360px){
+    .corner{display:none}
+  }
+  /* ═══════════════════════════════════════ */
+
+  /* ── CARD ── */
   .card{
     text-align:center;
-    max-width:600px;width:100%;
-    position:relative;z-index:1;
+    width:100%;
+    max-width:580px;
+    position:relative;
+    z-index:1;
     animation:fadeUp .8s ease both;
+    /* Sicherheitsabstand zu den Eckornamenten */
+    padding:clamp(0.5rem, 3vw, 1.5rem);
   }
-  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+  }
 
+  /* ── LOGO ── */
   .logo-wrap{
-    margin-bottom:2.5rem;
-    display:flex;justify-content:center;
+    margin-bottom:clamp(1.25rem, 4vw, 2.5rem);
+    display:flex;
+    justify-content:center;
     animation:fadeUp .8s ease .1s both;
   }
 
+  /* ═══════════════════════════════════════
+     00 LOGO
+     Option A (aktuell): img-Tag mit booqs-logo.png
+     Größe steuerbar über max-width (aktuell 160px)
+     Für größere/kleinere Darstellung einfach anpassen.
+  ═══════════════════════════════════════ */
+  .logo-wrap img{
+    width:clamp(120px, 30vw, 200px);
+    height:auto;
+    display:block;
+  }
+  /* ═══════════════════════════════════════ */
+
+  /* ── HEADLINE ── */
   .headline{
     font-family:'Playfair Display',Georgia,serif;
-    font-size:clamp(2rem,5vw,3rem);
+    font-size:clamp(1.6rem, 5vw, 3rem);
     font-weight:500;
     line-height:1.2;
     color:var(--ink);
-    margin-bottom:1rem;
+    margin-bottom:clamp(0.75rem, 2vw, 1rem);
     animation:fadeUp .8s ease .2s both;
   }
   .headline em{font-style:italic;opacity:.75}
 
+  /* ── SUBTEXT ── */
   .sub{
-    font-size:1rem;
+    font-size:clamp(0.85rem, 2.5vw, 1rem);
     color:var(--ink-light);
     line-height:1.8;
     max-width:420px;
-    margin:0 auto 2.5rem;
+    margin:0 auto clamp(1.5rem, 4vw, 2.5rem);
     font-weight:300;
     animation:fadeUp .8s ease .3s both;
   }
 
+  /* ── DIVIDER ── */
   .divider{
     width:48px;height:1.5px;
     background:var(--ink);opacity:.2;
-    margin:0 auto 2.5rem;
+    margin:0 auto clamp(1.5rem, 4vw, 2.5rem);
     animation:fadeUp .8s ease .35s both;
   }
 
+  /* ── FORM ── */
   .form-wrap{
-    display:flex;gap:.6rem;max-width:400px;
+    display:flex;
+    flex-direction:row;
+    gap:.6rem;
+    max-width:400px;
     margin:0 auto 1rem;
     animation:fadeUp .8s ease .4s both;
   }
+
+  /* Auf kleinen Screens untereinander stapeln */
+  @media(max-width:480px){
+    .form-wrap{
+      flex-direction:column;
+      align-items:stretch;
+    }
+    .submit-btn{
+      width:100%;
+    }
+  }
+
   .email-inp{
     flex:1;
-    padding:.75rem 1.1rem;
+    min-width:0; /* verhindert Overflow in Flexbox */
+    padding:clamp(0.6rem,2vw,0.75rem) clamp(0.85rem,2vw,1.1rem);
     border-radius:50px;
     border:1.5px solid var(--line);
     background:rgba(255,255,255,.6);
-    font-size:.88rem;color:var(--ink);
+    font-size:clamp(0.82rem,2.5vw,0.88rem);
+    color:var(--ink);
     font-family:'Inter',sans-serif;
     outline:none;
     transition:border-color .2s,background .2s;
+    -webkit-appearance:none; /* iOS fix */
   }
   .email-inp::placeholder{color:var(--ink-faint)}
   .email-inp:focus{border-color:var(--ink);background:rgba(255,255,255,.9)}
+
   .submit-btn{
-    background:var(--ink);color:var(--cream);
-    font-size:.85rem;font-weight:500;
-    padding:.75rem 1.4rem;border-radius:50px;
-    border:none;cursor:pointer;white-space:nowrap;
+    background:var(--ink);
+    color:var(--cream);
+    font-size:clamp(0.82rem,2.5vw,0.88rem);
+    font-weight:500;
+    padding:clamp(0.6rem,2vw,0.75rem) clamp(1rem,3vw,1.4rem);
+    border-radius:50px;
+    border:none;
+    cursor:pointer;
+    white-space:nowrap;
     font-family:'Inter',sans-serif;
     transition:opacity .2s,transform .15s;
+    /* Touch-freundlich: min. 44px Höhe */
+    min-height:44px;
+    flex-shrink:0;
   }
   .submit-btn:hover{opacity:.85;transform:translateY(-1px)}
+  .submit-btn:active{transform:translateY(0)}
 
+  /* ── FORM NOTE ── */
   .form-note{
-    font-size:.72rem;color:var(--ink-faint);
+    font-size:clamp(0.68rem,2vw,0.72rem);
+    color:var(--ink-faint);
     animation:fadeUp .8s ease .45s both;
-    margin-bottom:3rem;
+    margin-bottom:clamp(1.5rem,4vw,3rem);
+    padding:0 1rem;
   }
 
+  /* ── SOCIAL ROW ── */
   .social-row{
-    display:flex;justify-content:center;align-items:center;gap:1.5rem;
+    display:flex;
+    flex-wrap:wrap; /* umbrechen auf kleinen Screens */
+    justify-content:center;
+    align-items:center;
+    gap:clamp(0.75rem,2vw,1.5rem);
     animation:fadeUp .8s ease .5s both;
+    row-gap:0.75rem;
   }
+
   .social-link{
-    font-size:.75rem;font-weight:500;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--ink-light);
+    font-size:clamp(0.7rem,2vw,0.75rem);
+    font-weight:500;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-light);
     text-decoration:none;
-    display:flex;align-items:center;gap:.4rem;
+    display:flex;
+    align-items:center;
+    gap:.4rem;
     transition:color .2s;
+    min-height:44px; /* Touch-freundlich */
+    padding:0 .25rem;
   }
   .social-link:hover{color:var(--ink)}
-  .social-dot{width:4px;height:4px;border-radius:50%;background:var(--ink-faint)}
 
+  /* Trennpunkte auf kleinen Screens ausblenden */
+  @media(max-width:360px){
+    .social-dot{display:none}
+    .social-row{gap:.5rem}
+  }
+
+  .social-dot{
+    width:4px;height:4px;
+    border-radius:50%;
+    background:var(--ink-faint);
+    flex-shrink:0;
+  }
+
+  /* ── FOOTER NOTE ── */
   .foot-note{
-    position:fixed;bottom:1.5rem;left:0;right:0;
+    position:relative; /* nicht mehr fixed auf Mobile */
+    margin-top:clamp(1.5rem,4vw,2.5rem);
     text-align:center;
-    font-size:.68rem;color:var(--ink-faint);
+    font-size:clamp(0.64rem,1.8vw,0.68rem);
+    color:var(--ink-faint);
     letter-spacing:.06em;
     animation:fadeUp .8s ease .6s both;
+    z-index:1;
+  }
+
+  /* Auf großen Screens wieder fixed ans Bottom */
+  @media(min-height:700px) and (min-width:600px){
+    .foot-note{
+      position:fixed;
+      bottom:1.5rem;
+      left:0;right:0;
+      margin-top:0;
+    }
   }
 </style>
 </head>
@@ -142,15 +264,17 @@
 
 
 <div class="card">
-<div class="logo-wrap"> <img src="booqs-logo.png" alt="booqs" style="width:200px;height:auto"> </div>
+
   <!-- ═══════════════════════════════════════
        00 LOGO
-       Option A (aktuell): SVG-Logo direkt im Code
-       Option B (Bildtausch): <div class="logo-wrap">
-                                <img src="DEIN-LOGO.png" alt="booqs" style="width:180px;height:auto">
-                              </div>
-       Größe steuerbar über: style="width:180px" (aktuell 180px)
+       Dateiname: booqs-logo.png (im gleichen Ordner wie index.html)
+       Größe: gesteuert über CSS .logo-wrap img (clamp 120–200px)
   ═══════════════════════════════════════ -->
+  <div class="logo-wrap">
+    <img src="booqs-logo.png" alt="">
+  </div>
+  <!-- ═══════════════════════════════════════ -->
+
   <h1 class="headline">Etwas Schönes<br><em>entsteht gerade.</em></h1>
 
   <p class="sub">Wir geben unserem neuen Zuhause noch den letzten Schliff. Bald findet ihr hier alles rund um unsere Bücher für Familien, die gemeinsam mehr erleben wollen.</p>
@@ -158,25 +282,22 @@
   <div class="divider"></div>
 
   <form class="form-wrap" id="notifyForm" action="https://formspree.io/f/xoeqgylk" method="POST">
-    <input class="email-inp" type="email" name="email" placeholder="deine@email.de" required>
+    <input class="email-inp" type="email" name="email" placeholder="deine@email.de" required autocomplete="email">
     <button class="submit-btn" type="submit">Benachrichtigen</button>
   </form>
   <p class="form-note" id="formNote">Wir schreiben dir, sobald wir live gehen. Kein Spam, versprochen.</p>
 
   <div class="social-row">
-    <!-- Instagram -->
     <a class="social-link" href="https://www.instagram.com/booqs_weggefaehrten/" target="_blank" rel="noopener">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
       Instagram
     </a>
     <div class="social-dot"></div>
-    <!-- Facebook -->
     <a class="social-link" href="https://www.facebook.com/profile.php?id=61594009439346" target="_blank" rel="noopener">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
       Facebook
     </a>
     <div class="social-dot"></div>
-    <!-- E-Mail -->
     <a class="social-link" href="mailto:info@booqs.eu">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H4z"/><path d="M4 4l8 8 8-8"/></svg>
       info@booqs.eu
